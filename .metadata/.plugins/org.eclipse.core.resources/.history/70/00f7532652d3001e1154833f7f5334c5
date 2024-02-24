@@ -1,0 +1,19 @@
+package br.com.pagamento.sistema.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import br.com.pagamento.sistema.model.Pagamento;
+import br.com.pagamento.sistema.service.repo.PagamentoRepository;
+
+@Service
+public class PagamentoServiceImpl {
+	
+	@Autowired
+	private PagamentoRepository repo;
+	
+	//@Override
+	public Pagamento salvarPagamento(Pagamento pagamento) {
+		
+	}
+}

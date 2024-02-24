@@ -1,0 +1,8 @@
+1708795616226	Delete element
+1708798406061	Rename resource 'index.html'
+1708798480087	Rename resource 'listarPagamentos.html'
+1708798486435	Rename resource 'adicionarPagamentos.html'
+1708805857532	Rename type 'PagamentoImpl'
+1708807838754	Delete element
+1708807973927	Rename package 'br.com.pagamento.sistema.service.repo'
+1708808426402	Rename type 'IPagamentoservice'

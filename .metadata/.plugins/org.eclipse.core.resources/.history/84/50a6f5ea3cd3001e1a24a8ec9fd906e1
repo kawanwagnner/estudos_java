@@ -1,0 +1,10 @@
+package br.com.pagamento.sistema.model;
+
+import jakarta.persistence.Entity;
+import lombok.Data;
+
+@Entity // Entidade indicando que é Objeto
+@Data // Gera automaticamente os getts and setters
+public class Pagamento {
+
+}

@@ -1,0 +1,15 @@
+package Models;
+
+public class Pessoa {
+	String nome;
+    double salarioBruto;
+    int numeroDependentes;
+    boolean vr;
+    boolean va;
+    boolean vt;
+    String planoDeSaude;
+
+
+
+	
+}
