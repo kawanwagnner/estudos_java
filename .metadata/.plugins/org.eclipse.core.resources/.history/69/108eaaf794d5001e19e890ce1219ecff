@@ -1,0 +1,93 @@
+package Models;
+
+public class Pessoa {
+	private String nome;
+	private double salarioBruto;
+	private int numeroDependentes;
+	String direitoVR;
+	private boolean vr;
+	String direitoVA;
+	private boolean va;
+	String direitoVT;
+	private boolean vt;
+	private String planoDeSaude;
+	private String direitoPlanoDeSaude;
+
+	public Pessoa(String nome, double salarioBruto, int numeroDependentes, boolean vr, boolean va, boolean vt,
+			String planoDeSaude, String direitoPlanoDeSaude) {
+		super();
+		this.nome = nome;
+		this.salarioBruto = salarioBruto;
+		this.numeroDependentes = numeroDependentes;
+		this.vr = vr;
+		this.va = va;
+		this.vt = vt;
+		this.planoDeSaude = planoDeSaude;
+		this.direitoPlanoDeSaude = direitoPlanoDeSaude;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public double getSalarioBruto() {
+		return salarioBruto;
+	}
+
+	public void setSalarioBruto(double salarioBruto) {
+		this.salarioBruto = salarioBruto;
+	}
+
+	public int getNumeroDependentes() {
+		return numeroDependentes;
+	}
+
+	public void setNumeroDependentes(int numeroDependentes) {
+		this.numeroDependentes = numeroDependentes;
+	}
+
+	public boolean isVr() {
+		return vr;
+	}
+
+	public void setVr(boolean vr) {
+		this.vr = vr;
+	}
+
+	public boolean isVa() {
+		return va;
+	}
+
+	public void setVa(boolean va) {
+		this.va = va;
+	}
+
+	public boolean isVt() {
+		return vt;
+	}
+
+	public void setVt(boolean vt) {
+		this.vt = vt;
+	}
+	
+	public String getDireitoPlanoDeSaude() {
+		return direitoPlanoDeSaude;
+	}
+	
+	public void setDireitoPlanoDeSaude(String direitoPlanoDeSaude) {
+		this.direitoPlanoDeSaude = direitoPlanoDeSaude;
+	}
+
+	public String getPlanoDeSaude() {
+		return planoDeSaude;
+	}
+
+	public void setPlanoDeSaude(String planoDeSaude) {
+		this.planoDeSaude = planoDeSaude;
+	}
+
+}

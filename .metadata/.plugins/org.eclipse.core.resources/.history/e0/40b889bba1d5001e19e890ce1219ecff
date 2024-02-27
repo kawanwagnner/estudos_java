@@ -1,0 +1,174 @@
+package Models;
+
+public class Pessoa {
+	private String nome;
+	private double salarioBruto;
+	private int numeroDependentes;
+	String direitoVR;
+	private boolean vr;
+	String direitoVA;
+	private boolean va;
+	String direitoVT;
+	private boolean vt;
+	private String planoDeSaude;
+	private String direitoPlanoDeSaude;
+
+	public Pessoa(String nome, double salarioBruto, int numeroDependentes, String direitoVR, boolean vr,
+			String direitoVA, boolean va, String direitoVT, boolean vt, String planoDeSaude,
+			String direitoPlanoDeSaude) {
+		super();
+		this.nome = nome;
+		this.salarioBruto = salarioBruto;
+		this.numeroDependentes = numeroDependentes;
+		this.direitoVR = direitoVR;
+		this.vr = vr;
+		this.direitoVA = direitoVA;
+		this.va = va;
+		this.direitoVT = direitoVT;
+		this.vt = vt;
+		this.planoDeSaude = planoDeSaude;
+		this.direitoPlanoDeSaude = direitoPlanoDeSaude;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public double getSalarioBruto() {
+		return salarioBruto;
+	}
+
+	public void setSalarioBruto(double salarioBruto) {
+		this.salarioBruto = salarioBruto;
+	}
+
+	public int getNumeroDependentes() {
+		return numeroDependentes;
+	}
+
+	public void setNumeroDependentes(int numeroDependentes) {
+		this.numeroDependentes = numeroDependentes;
+	}
+
+	public String getDireitoVR() {
+		return direitoVR;
+	}
+
+	public void setDireitoVR(String direitoVR) {
+		this.direitoVR = direitoVR;
+	}
+
+	public boolean isVr() {
+		return vr;
+	}
+
+	public void setVr(boolean vr) {
+		this.vr = vr;
+	}
+
+	public boolean isVa() {
+		return va;
+	}
+
+	public void setVa(boolean va) {
+		this.va = va;
+	}
+
+	public String getDireitoVA() {
+		return direitoVA;
+	}
+
+	public void setDireitoVA(String direitoVA) {
+		this.direitoVA = direitoVA;
+	}
+
+	public boolean isVt() {
+		return vt;
+	}
+
+	public void setVt(boolean vt) {
+		this.vt = vt;
+	}
+
+	public String getDireitoVT() {
+		return direitoVT;
+	}
+
+	public void setDireitoVT(String direitoVT) {
+		this.direitoVT = direitoVT;
+	}
+
+	public String getDireitoPlanoDeSaude() {
+		return direitoPlanoDeSaude;
+	}
+
+	public void setDireitoPlanoDeSaude(String direitoPlanoDeSaude) {
+		this.direitoPlanoDeSaude = direitoPlanoDeSaude;
+	}
+
+	public String getPlanoDeSaude() {
+		return planoDeSaude;
+	}
+
+	public void setPlanoDeSaude(String planoDeSaude) {
+		this.planoDeSaude = planoDeSaude;
+	}
+
+	
+	public double calcularSalarioLiquido() {
+		// Variáveis para os descontos/benefícios
+		double descontoINSS = 0.0;
+		double descontoIRRF = 0.0;
+		double beneficioVT = 0.0;
+		double beneficioVR = 0.0;
+		double beneficioVA = 0.0;
+		
+		// Lógica de cálculo do INSS
+		if (this.salarioBruto > 0) {
+			if (this.salarioBruto <= 1751.81) {
+				descontoINSS = this.salarioBruto * 0.08;
+			} else if (this.salarioBruto <= 2919.72) {
+				descontoINSS = this.salarioBruto * 0.09;
+			} else if (this.salarioBruto <= 5839.45) {
+				descontoINSS = this.salarioBruto * 0.11;
+			} else {
+				descontoINSS = 5839.45 * 0.11; // Máximo valor de desconto do INSS
+			}
+		}
+		
+		
+		// Lógica de cálculo do IRRF
+        // Adapte essa parte de acordo com as regras fiscais do seu país
+        // Aqui está um exemplo básico
+        double salarioBaseIRRF = this.salarioBruto - descontoINSS - this.numeroDependentes * 189.59;
+        if (salarioBaseIRRF > 1903.98) {
+            descontoIRRF = salarioBaseIRRF * 0.075 - 142.80;
+        }
+
+        // Lógica de cálculo dos benefícios
+        if (this.vt) {
+            beneficioVT = 150.0; // Valor fixo do vale-transporte
+        }
+
+        if (this.vr) {
+            beneficioVR = 250.0; // Valor fixo do vale-refeição
+        }
+
+        if (this.va) {
+            beneficioVA = 200.0; // Valor fixo do vale-alimentação
+        }
+
+        // Cálculo do salário líquido
+        double salarioLiquido = this.salarioBruto - descontoINSS - descontoIRRF + beneficioVT + beneficioVR + beneficioVA;
+
+        return salarioLiquido;
+    }
+}
+	}
+	
+	
+}

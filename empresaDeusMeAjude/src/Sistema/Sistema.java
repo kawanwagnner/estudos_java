@@ -14,8 +14,8 @@ public class Sistema {
 		System.out.println("2 - Listar Usuários");
 		System.out.println("3 - Deletar Usuário");
 		System.out.println("4 - Atualizar Dados");
-		System.out.println("5 - Atualizar Dados");
-		System.out.println("6 - Atualizar Dados");
+		System.out.println("5 - Informações Únicas");
+		System.out.println("6 - Calcular salário líquido");
 		System.out.println("10 - Sair do Sistema");
 		System.out.println("===================");
 	}
@@ -23,8 +23,9 @@ public class Sistema {
 	public static void main(String[] args) {
 
 		ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
-		String nome = "", planoDeSaude = "", direitoVR = null, direitoVA = null, direitoVT = null;
-		int intSalarioBruto = 0, intDependentes = 0, intValorPlanoDeSaude = 0;
+		String nome = "", planoDeSaude = "N/D", direitoVR = null, direitoVA = null, direitoVT = null;
+		double dblSalarioBruto = 0;
+		int intDependentes = 0;
 		boolean vr = false, va = false, vt = false;
 		boolean validador = false;
 
@@ -59,28 +60,33 @@ public class Sistema {
 				do {
 					try {
 						System.out.println("Qual é o salário Bruto?");
-						intSalarioBruto = input.nextInt();
+						dblSalarioBruto = input.nextDouble();
 					} catch (Exception e) {
-						System.err.println("Por favor digite um valor válido!!");
+						System.err.println("Precisamos de um valor válido!!");
+						System.err.println("[ERROR!!] Por favor reinicie o Sistema e tente novamente :(");
+						System.exit(0);
 					}
 
-					if (intSalarioBruto < 0) {
-						System.err.println("Somente valores positivos são permitidos!");
+					if (dblSalarioBruto < 500) {
+						System.err
+								.println("Somente valores positivos são permitidos && maior ou igual à R$ 500 reais!!");
 					}
-				} while (intSalarioBruto < 0);
+				} while (dblSalarioBruto < 0);
 
 				do {
 					try {
-						System.out.println("Quantos dependetes o funcionário tem?");
+						System.out.println("Quantos dependentes o funcionário tem?");
 						intDependentes = input.nextInt();
 					} catch (Exception e) {
-						System.err.println("Por favor digite um valor válido!!");
+						System.err.println("Precisamos de um valor válido!!");
+						System.err.println("[ERROR!!] Por favor reinicie o Sistema e tente novamente :(");
+						System.exit(0);
 					}
 
 					if (intDependentes < 0) {
-						System.err.println("Somente valores positivos são permitidos!");
+						System.err.println("Somente valores positivos são permitidos && menor que 75 dependentes!");
 					}
-				} while (intDependentes < 0);
+				} while (intDependentes < 0 && dblSalarioBruto > 75);
 
 				do {
 					try {
@@ -88,9 +94,11 @@ public class Sistema {
 						direitoVR = input.next();
 						if (direitoVR.equalsIgnoreCase("S")) {
 							vr = true;
+							direitoVR = "Sim";
 							validador = true;
 						} else if (direitoVR.equalsIgnoreCase("N")) {
 							vr = false;
+							direitoVR = "Não";
 							validador = true;
 						} else {
 							System.err.println("Digite um valor válido");
@@ -104,15 +112,18 @@ public class Sistema {
 
 				} while (validador == false);
 
+				validador = false;
 				do {
 					try {
 						System.out.println("Tem direito á VA? S/N");
 						direitoVA = input.next();
 						if (direitoVA.equalsIgnoreCase("S")) {
 							va = true;
+							direitoVA = "Sim";
 							validador = true;
 						} else if (direitoVA.equalsIgnoreCase("N")) {
 							va = false;
+							direitoVA = "Não";
 							validador = true;
 						} else {
 							System.err.println("Digite um valor válido");
@@ -126,15 +137,18 @@ public class Sistema {
 
 				} while (validador == false);
 
+				validador = false;
 				do {
 					try {
 						System.out.println("Tem direito á VT? S/N");
 						direitoVT = input.next();
 						if (direitoVT.equalsIgnoreCase("S")) {
 							vt = true;
+							direitoVT = "Sim";
 							validador = true;
 						} else if (direitoVT.equalsIgnoreCase("N")) {
 							vt = false;
+							direitoVT = "Não";
 							validador = true;
 						} else {
 							System.err.println("Digite um valor válido");
@@ -148,21 +162,37 @@ public class Sistema {
 
 				} while (validador == false);
 
+				validador = false;
+				String direitoPlanoDeSaude = "";
 				do {
 
 					try {
-						System.out.println(
-								"Qual é o plano de saúde do funcionário? B = Básico, P = Premium, PPP = Platinum Premium Plus");
-						planoDeSaude = input.next();
-						if (planoDeSaude.equalsIgnoreCase("B")) {
-							intValorPlanoDeSaude = 100;
+						System.out.println("O funcionário tem direito á plano de saúde? S/N");
+						direitoPlanoDeSaude = input.next();
+						if (direitoPlanoDeSaude.equalsIgnoreCase("S")) {
+							direitoPlanoDeSaude = "Sim";
+							do {
+								System.out.println(
+										"Qual é o plano de saúde do funcionário? B = Básico, P = Premium, PPP = Platinum Premium Plus");
+								planoDeSaude = input.next();
+								if (planoDeSaude.equalsIgnoreCase("B")) {
+									planoDeSaude = "Básico";
+									validador = true;
+								} else if (planoDeSaude.equalsIgnoreCase("P")) {
+									planoDeSaude = "Premium";
+									validador = true;
+								} else if (planoDeSaude.equalsIgnoreCase("PPP")) {
+									planoDeSaude = "Platinum Premium Plus";
+									validador = true;
+								} else {
+									System.err.println(
+											"Valor inválido, por favor digite somente um dos valores pedidos à cima!!");
+								}
+							} while (validador == false);
+						} else if (direitoPlanoDeSaude.equalsIgnoreCase("N")) {
+							direitoPlanoDeSaude = "Não";
 							validador = true;
-						} else if (planoDeSaude.equalsIgnoreCase("P")) {
-							intValorPlanoDeSaude = 250;
-							validador = true;
-						} else if (planoDeSaude.equalsIgnoreCase("PPP")) {
-							intValorPlanoDeSaude = 500;
-							validador = true;
+							continue;
 						} else {
 							System.err.println(
 									"Valor inválido, por favor digite somente um dos valores pedidos à cima!!");
@@ -172,12 +202,12 @@ public class Sistema {
 						System.err.println("Por favor digite um valor válido!!");
 					}
 
-
 				} while (validador == false);
 
-				Pessoa pessoa = new Pessoa(nome, intSalarioBruto, intDependentes, vr, va, vt, planoDeSaude);
+				Pessoa pessoa = new Pessoa(nome, dblSalarioBruto, intDependentes, direitoVR, vr, direitoVA, va,
+						direitoVT, vt, direitoPlanoDeSaude, planoDeSaude);
 				pessoas.add(pessoa);
-
+				break;
 			}
 			case 2: {
 				pessoas.forEach(item -> {
@@ -189,10 +219,11 @@ public class Sistema {
 						System.out.println("Nome do funcionário: " + item.getNome());
 						System.out.println("Salário Bruto: " + item.getSalarioBruto());
 						System.out.println("Nº de Dependetes: " + item.getNumeroDependentes());
-						System.out.println("Plano de Saúde: " + item.getPlanoDeSaude());
-						System.out.println("VR: " + item.isVr());
-						System.out.println("VA: " + item.isVa());
-						System.out.println("VT: " + item.isVt());
+						System.out.println("Tem direito á Plano de Saúde: " + item.getPlanoDeSaude());
+						System.out.println("Plano de Saúde: " + item.getDireitoPlanoDeSaude());
+						System.out.println("VR: " + item.getDireitoVR());
+						System.out.println("VA: " + item.getDireitoVA());
+						System.out.println("VT: " + item.getDireitoVT());
 						System.out.println("#######################");
 					} else {
 						System.out.println("");
@@ -220,6 +251,7 @@ public class Sistema {
 					pessoas.get(index).setSalarioBruto(0);
 					pessoas.get(index).setNumeroDependentes(0);
 					pessoas.get(index).setPlanoDeSaude("");
+					pessoas.get(index).setDireitoPlanoDeSaude("");
 					System.out.println("#######################");
 					System.out.println("Usuário Deletado com Sucesso!!");
 					System.out.println("#######################");
@@ -361,7 +393,50 @@ public class Sistema {
 				continue;
 
 			}
-			case 9: {
+
+			case 5: {
+				// Deletar Usuario
+				System.out.println("");
+				System.out.println("Digite o número do usuário que deseja se informar:");
+				int index = input.nextInt();
+
+				if (pessoas.get(index) != null) {
+					System.out.println("");
+					System.out.println("#######################");
+					System.out.println("Item Específico: ");
+					System.out.println("#######################");
+					System.out.println("Nome do funcionário: " + pessoas.get(index).getNome());
+					System.out.println("Salário Bruto: " + pessoas.get(index).getSalarioBruto());
+					System.out.println("Nº de Dependetes: " + pessoas.get(index).getNumeroDependentes());
+					System.out.println("Tem direito á Plano de Saúde: " + pessoas.get(index).getPlanoDeSaude());
+					System.out.println("Plano de Saúde: " + pessoas.get(index).getDireitoPlanoDeSaude());
+					System.out.println("VR: " + pessoas.get(index).getDireitoVR());
+					System.out.println("VA: " + pessoas.get(index).getDireitoVA());
+					System.out.println("VT: " + pessoas.get(index).getDireitoVT());
+					System.out.println("#######################");
+				} else {
+					System.err.println("Usuário não encontrado...");
+				}
+
+				continue;
+			}
+			case 6: {
+			    System.out.println("");
+			    System.out.println("Calcular Salário Líquido: ");
+			    System.out.println("#######################");
+			    System.out.println("Digite o número do usuário para calcular o salário líquido:");
+			    int index = input.nextInt();
+
+			    if (index >= 0 && index < pessoas.size()) {
+			    	double salarioLiquido = pessoas.get(index).calcularSalarioLiquido();
+			    	System.out.println("Salário Líquido: " + salarioLiquido);
+			    } else {
+			        System.err.println("Usuário não encontrado...");
+			    }
+
+			    continue;
+			}
+			case 10: {
 				System.exit(0);
 			}
 			default:

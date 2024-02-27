@@ -1,0 +1,164 @@
+package Models;
+
+public class Pessoa {
+	private String nome;
+	private double salarioBruto;
+	private int numeroDependentes;
+	String direitoVR;
+	private boolean vr;
+	String direitoVA;
+	private boolean va;
+	String direitoVT;
+	private boolean vt;
+	private String planoDeSaude;
+	private String direitoPlanoDeSaude;
+
+	public Pessoa(String nome, double salarioBruto, int numeroDependentes, String direitoVR, boolean vr,
+			String direitoVA, boolean va, String direitoVT, boolean vt, String planoDeSaude,
+			String direitoPlanoDeSaude) {
+		super();
+		this.nome = nome;
+		this.salarioBruto = salarioBruto;
+		this.numeroDependentes = numeroDependentes;
+		this.direitoVR = direitoVR;
+		this.vr = vr;
+		this.direitoVA = direitoVA;
+		this.va = va;
+		this.direitoVT = direitoVT;
+		this.vt = vt;
+		this.planoDeSaude = planoDeSaude;
+		this.direitoPlanoDeSaude = direitoPlanoDeSaude;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public double getSalarioBruto() {
+		return salarioBruto;
+	}
+
+	public void setSalarioBruto(double salarioBruto) {
+		this.salarioBruto = salarioBruto;
+	}
+
+	public int getNumeroDependentes() {
+		return numeroDependentes;
+	}
+
+	public void setNumeroDependentes(int numeroDependentes) {
+		this.numeroDependentes = numeroDependentes;
+	}
+
+	public String getDireitoVR() {
+		return direitoVR;
+	}
+
+	public void setDireitoVR(String direitoVR) {
+		this.direitoVR = direitoVR;
+	}
+
+	public boolean isVr() {
+		return vr;
+	}
+
+	public void setVr(boolean vr) {
+		this.vr = vr;
+	}
+
+	public boolean isVa() {
+		return va;
+	}
+
+	public void setVa(boolean va) {
+		this.va = va;
+	}
+
+	public String getDireitoVA() {
+		return direitoVA;
+	}
+
+	public void setDireitoVA(String direitoVA) {
+		this.direitoVA = direitoVA;
+	}
+
+	public boolean isVt() {
+		return vt;
+	}
+
+	public void setVt(boolean vt) {
+		this.vt = vt;
+	}
+
+	public String getDireitoVT() {
+		return direitoVT;
+	}
+
+	public void setDireitoVT(String direitoVT) {
+		this.direitoVT = direitoVT;
+	}
+
+	public String getDireitoPlanoDeSaude() {
+		return direitoPlanoDeSaude;
+	}
+
+	public void setDireitoPlanoDeSaude(String direitoPlanoDeSaude) {
+		this.direitoPlanoDeSaude = direitoPlanoDeSaude;
+	}
+
+	public String getPlanoDeSaude() {
+		return planoDeSaude;
+	}
+
+	public void setPlanoDeSaude(String planoDeSaude) {
+		this.planoDeSaude = planoDeSaude;
+	}
+
+	public double calcularSalarioLiquido() {
+	    double descontoINSS = this.salarioBruto * 0.11;
+	    double descontoIRRF = this.salarioBruto * 0.15;
+	    double descontoVR = this.vr ? 0.03 * this.salarioBruto : 0.0;
+	    double descontoVA = this.va ? 0.05 * this.salarioBruto : 0.0;
+	    double descontoVT = this.vt ? 0.06 * this.salarioBruto : 0.0;
+	    double descontoPlanoDeSaude = 0.0;
+
+	    if (this.direitoPlanoDeSaude.equalsIgnoreCase("S")) {
+	        descontoPlanoDeSaude = calcularDescontoPlanoDeSaude();
+	    }
+
+	    double totalDescontos = descontoINSS + descontoIRRF + descontoVR + descontoVA + descontoVT
+	            + descontoPlanoDeSaude;
+	    double salarioLiquido = this.salarioBruto - totalDescontos;
+
+	    // Adicione impressões para depuração
+	    System.out.println("Desconto INSS: " + descontoINSS);
+	    System.out.println("Desconto IRRF: " + descontoIRRF);
+	    System.out.println("Desconto VR: " + descontoVR);
+	    System.out.println("Desconto VA: " + descontoVA);
+	    System.out.println("Desconto VT: " + descontoVT);
+	    System.out.println("Desconto Plano de Saúde: " + descontoPlanoDeSaude);
+	    System.out.println("Total Descontos: " + totalDescontos);
+	    System.out.println("Salário Líquido: " + salarioLiquido);
+
+	    return salarioLiquido;
+	}
+
+	private double calcularDescontoPlanoDeSaude() {
+		double descontoPlano = 0.0;
+
+		if (this.planoDeSaude.equalsIgnoreCase("Básico")) {
+			descontoPlano = 100.0;
+		} else if (this.planoDeSaude.equalsIgnoreCase("Premium")) {
+			descontoPlano = 250.0;
+		} else if (this.planoDeSaude.equalsIgnoreCase("Platinum Premium Plus")) {
+			descontoPlano = 500.0;
+		}
+
+		return descontoPlano;
+	}
+
+}

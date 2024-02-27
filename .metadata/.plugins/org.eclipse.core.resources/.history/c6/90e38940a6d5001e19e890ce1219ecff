@@ -1,0 +1,173 @@
+package Models;
+
+public class Pessoa {
+	private String nome;
+	private double salarioBruto;
+	private int numeroDependentes;
+	String direitoVR;
+	private boolean vr;
+	String direitoVA;
+	private boolean va;
+	String direitoVT;
+	private boolean vt;
+	private String planoDeSaude;
+	private String direitoPlanoDeSaude;
+
+	public Pessoa(String nome, double salarioBruto, int numeroDependentes, String direitoVR, boolean vr,
+			String direitoVA, boolean va, String direitoVT, boolean vt, String planoDeSaude,
+			String direitoPlanoDeSaude) {
+		super();
+		this.nome = nome;
+		this.salarioBruto = salarioBruto;
+		this.numeroDependentes = numeroDependentes;
+		this.direitoVR = direitoVR;
+		this.vr = vr;
+		this.direitoVA = direitoVA;
+		this.va = va;
+		this.direitoVT = direitoVT;
+		this.vt = vt;
+		this.planoDeSaude = planoDeSaude;
+		this.direitoPlanoDeSaude = direitoPlanoDeSaude;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public double getSalarioBruto() {
+		return salarioBruto;
+	}
+
+	public void setSalarioBruto(double salarioBruto) {
+		this.salarioBruto = salarioBruto;
+	}
+
+	public int getNumeroDependentes() {
+		return numeroDependentes;
+	}
+
+	public void setNumeroDependentes(int numeroDependentes) {
+		this.numeroDependentes = numeroDependentes;
+	}
+
+	public String getDireitoVR() {
+		return direitoVR;
+	}
+
+	public void setDireitoVR(String direitoVR) {
+		this.direitoVR = direitoVR;
+	}
+
+	public boolean isVr() {
+		return vr;
+	}
+
+	public void setVr(boolean vr) {
+		this.vr = vr;
+	}
+
+	public boolean isVa() {
+		return va;
+	}
+
+	public void setVa(boolean va) {
+		this.va = va;
+	}
+
+	public String getDireitoVA() {
+		return direitoVA;
+	}
+
+	public void setDireitoVA(String direitoVA) {
+		this.direitoVA = direitoVA;
+	}
+
+	public boolean isVt() {
+		return vt;
+	}
+
+	public void setVt(boolean vt) {
+		this.vt = vt;
+	}
+
+	public String getDireitoVT() {
+		return direitoVT;
+	}
+
+	public void setDireitoVT(String direitoVT) {
+		this.direitoVT = direitoVT;
+	}
+
+	public String getDireitoPlanoDeSaude() {
+		return direitoPlanoDeSaude;
+	}
+
+	public void setDireitoPlanoDeSaude(String direitoPlanoDeSaude) {
+		this.direitoPlanoDeSaude = direitoPlanoDeSaude;
+	}
+
+	public String getPlanoDeSaude() {
+		return planoDeSaude;
+	}
+
+	public void setPlanoDeSaude(String planoDeSaude) {
+		this.planoDeSaude = planoDeSaude;
+	}
+
+	public double calcularSalarioLiquido() {
+	    // Lógica de cálculo das taxas e benefícios
+	    double taxaVR = 0.03;
+	    double taxaVA = 0.05;
+	    double taxaVT = 0.06;
+	    double taxaINSS = 0.11;
+	    double taxaIRRF = 0.15;
+	    double valorPorDependente = 50.0;
+
+	    // Cálculo das taxas
+	    double descontoVR = this.salarioBruto * taxaVR;
+	    double descontoVA = this.salarioBruto * taxaVA;
+	    double descontoVT = this.salarioBruto * taxaVT;
+	    double descontoINSS = this.salarioBruto * taxaINSS;
+
+	    // Considerando o valor por dependente
+	    double descontoDependentes = this.numeroDependentes * valorPorDependente;
+
+	    // Lógica de cálculo do IRRF
+	    double salarioBaseIRRF = this.salarioBruto - descontoINSS - descontoDependentes;
+	    double descontoIRRF = 0.0;
+
+	    if (salarioBaseIRRF > 1903.98) {
+	        descontoIRRF = salarioBaseIRRF * taxaIRRF - 142.80;
+	    }
+
+	    // Lógica de cálculo do plano de saúde
+	    double custoPlanoSaude = 0.0;
+	    if (this.direitoPlanoDeSaude.equalsIgnoreCase("Sim")) {
+	        if (this.planoDeSaude.equalsIgnoreCase("Básico")) {
+	            custoPlanoSaude = 100.0;
+	        } else if (this.planoDeSaude.equalsIgnoreCase("Premium")) {
+	            custoPlanoSaude = 250.0;
+	        } else if (this.planoDeSaude.equalsIgnoreCase("Platinum Premium Plus")) {
+	            custoPlanoSaude = 500.0;
+	        }
+	    }
+
+	 // Cálculo dos benefícios
+	    double beneficioVT = this.vt ? 0.06 * this.salarioBruto : 0.0;
+	    double beneficioVA = this.va ? 0.05 * this.salarioBruto : 0.0;
+	    double beneficioVR = this.vr ? 0.03 * this.salarioBruto : 0.0;
+
+	    double totalBeneficios = beneficioVT + beneficioVA + beneficioVR;
+
+	    // Cálculo do salário líquido considerando todas as taxas e benefícios
+	    double salarioLiquido = this.salarioBruto - descontoINSS - descontoIRRF + beneficioVT + beneficioVR + beneficioVA
+	            - custoPlanoSaude - descontoVR - descontoVA - descontoVT;
+
+	    return salarioLiquido;
+	}
+
+}
